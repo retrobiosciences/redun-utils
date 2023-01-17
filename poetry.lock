@@ -534,7 +534,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "kubernetes"
-version = "24.2.0"
+version = "25.3.0"
 description = "Kubernetes python client"
 category = "main"
 optional = false
@@ -710,7 +710,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [[package]]
 name = "redun"
-version = "0.8.14"
+version = "0.12.0"
 description = "Yet another redundant workflow engine."
 category = "main"
 optional = false
@@ -719,25 +719,26 @@ develop = false
 
 [package.dependencies]
 aiobotocore = {version = ">=2.0.1", extras = ["awscli", "boto3"]}
-aiohttp = ">=3.7.4"
+aiohttp = ">=3.7.4,<4"
 alembic = ">=1.4"
 boto3 = ">=1.16.63"
-botocore = ">=1.22.8"
+botocore = ">=1.22.8,<1.28.0"
 gcsfs = ">=2021.4.0"
-kubernetes = ">=22.6"
 python-dateutil = ">=2.8"
 s3fs = ">=2021.11.1"
 sqlalchemy = ">=1.3.17,<2"
 
 [package.extras]
 glue = ["pandas", "pyarrow", "pyspark"]
-postgres = ["psycopg2-binary (>=2.8)"]
+k8s = ["kubernetes (>=22.6)"]
+postgres = ["psycopg2 (>=2.8)"]
+viz = ["pygraphviz"]
 
 [package.source]
 type = "git"
 url = "https://github.com/ricomnl/redun.git"
 reference = "main"
-resolved_reference = "6684a8976dbee1d134ce4366f85c5be57fab9ecf"
+resolved_reference = "2fdd42cd9a30e651e50f54424d945ea061b811ad"
 
 [[package]]
 name = "requests"
@@ -941,7 +942,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.11"
-content-hash = "4dd2b8b0640c289504ff0e461ce5035c6659b7aafc655c314a9b593ddda89130"
+content-hash = "00798e4221c380d2967d783c01c2c59000482e9b1e39a8b7515753e0fe9f2c2b"
 
 [metadata.files]
 aiobotocore = []

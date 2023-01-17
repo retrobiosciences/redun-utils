@@ -10,6 +10,7 @@ hera-workflows = "^3.6.3"
 python-dotenv = "^0.20.0"
 click = "^8.1.3"
 google-auth = "^2.10.0"
+kubernetes = "^25.3.0"
 redun = {git = "https://github.com/ricomnl/redun.git", rev = "main"}
 
 [tool.poetry.dev-dependencies]
