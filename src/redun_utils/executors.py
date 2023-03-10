@@ -4,6 +4,7 @@ from typing import Dict
 
 from redun.config import Config
 from redun.executors.docker import DockerExecutor
+from redun.executors.gcp_batch import GCPBatchExecutor
 
 try:
     from redun.executors.k8s import K8SExecutor
@@ -56,6 +57,35 @@ class CustomDockerExecutor(DockerExecutor):
                 f"executors.{name}": {
                     "image": image,
                     "scratch": scratch,
+                }
+            }
+        )
+        super().__init__(name, config=config["executors"][name])
+
+
+class CustomGCPBatchExecutor(GCPBatchExecutor):
+    """
+    GCP Batch Executor
+    """
+
+    def __init__(
+            self, 
+            name: str, 
+            image: str, 
+            project: str,
+            region: str,
+            machine_type: str = "e2-standard-4",
+            provisioning_model: str = "standard",
+            scratch: str = "scratch"):
+        config = Config(
+            {
+                f"executors.{name}": {
+                    "image": image,
+                    "gcs_scratch": scratch,
+                    "project": project,
+                    "region": region,
+                    "machine_type": machine_type,
+                    "provisioning_model": provisioning_model,
                 }
             }
         )
