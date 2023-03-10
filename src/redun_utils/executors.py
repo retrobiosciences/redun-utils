@@ -1,6 +1,6 @@
 """src/redun-utils/executors.py"""
 import json
-from typing import Dict
+from typing import Dict, Optional
 
 from redun.config import Config
 from redun.executors.docker import DockerExecutor
@@ -69,24 +69,25 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
     """
 
     def __init__(
-            self, 
-            name: str, 
-            image: str, 
-            project: str,
-            region: str,
-            machine_type: str = "e2-standard-4",
-            provisioning_model: str = "standard",
-            scratch: str = "scratch"):
-        config = Config(
-            {
-                f"executors.{name}": {
-                    "image": image,
-                    "gcs_scratch": scratch,
-                    "project": project,
-                    "region": region,
-                    "machine_type": machine_type,
-                    "provisioning_model": provisioning_model,
-                }
-            }
-        )
+        self,
+        name: str,
+        image: str,
+        project: str,
+        region: str,
+        machine_type: str = "e2-standard-4",
+        provisioning_model: str = "standard",
+        scratch: str = "scratch",
+        boot_disk_size_gib: Optional[int] = None,
+    ):
+        params = {
+            "image": image,
+            "gcs_scratch": scratch,
+            "project": project,
+            "region": region,
+            "machine_type": machine_type,
+            "provisioning_model": provisioning_model,
+        }
+        if boot_disk_size_gib:
+            params["boot_disk_size_gib"] = str(boot_disk_size_gib)
+        config = Config({f"executors.{name}": params})
         super().__init__(name, config=config["executors"][name])
