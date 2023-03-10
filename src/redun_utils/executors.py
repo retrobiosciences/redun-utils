@@ -77,7 +77,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
         machine_type: str = "e2-standard-4",
         provisioning_model: str = "standard",
         scratch: str = "scratch",
-        boot_disk_size_gib: Optional[int] = None,
+        boot_disk_size_gb: Optional[int] = None,
     ):
         params = {
             "image": image,
@@ -87,7 +87,9 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
             "machine_type": machine_type,
             "provisioning_model": provisioning_model,
         }
-        if boot_disk_size_gib:
+        if boot_disk_size_gb:
+            # convert gb to gib
+            boot_disk_size_gib = int(boot_disk_size_gb * (1e9 / 1024 ** 3))
             params["boot_disk_size_gib"] = str(boot_disk_size_gib)
         config = Config({f"executors.{name}": params})
         super().__init__(name, config=config["executors"][name])
