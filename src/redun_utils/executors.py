@@ -74,7 +74,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
         image: str,
         project: str,
         region: str,
-        machine_type: str = "e2-standard-4",
+        machine_type: Optional[str] = None,
         provisioning_model: str = "standard",
         scratch: str = "scratch",
         boot_disk_size_gb: Optional[int] = None,
@@ -84,9 +84,10 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
             "gcs_scratch": scratch,
             "project": project,
             "region": region,
-            "machine_type": machine_type,
             "provisioning_model": provisioning_model,
         }
+        if machine_type:
+            params["machine_type"] = machine_type
         if boot_disk_size_gb:
             # convert gb to gib
             boot_disk_size_gib = int(boot_disk_size_gb * (1e9 / 1024 ** 3))
