@@ -6,6 +6,7 @@ authors = ["Rico Meinl <rico@retro.bio>"]
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
+kubernetes = "^25.3.0"
 redun = {git = "https://github.com/retrobiosciences/redun.git", rev = "main"}
 
 [tool.poetry.dev-dependencies]
