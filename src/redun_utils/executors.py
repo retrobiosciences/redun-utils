@@ -1,6 +1,6 @@
 """src/redun-utils/executors.py"""
 import json
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Tuple
 
 from redun.config import Config
 from redun.executors.docker import DockerExecutor
@@ -75,6 +75,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
         project: str,
         region: str,
         machine_type: Optional[str] = None,
+        accelerators: List[Tuple[str, int]] = [],
         provisioning_model: str = "standard",
         scratch: str = "scratch",
         boot_disk_size_gb: Optional[int] = None,
@@ -84,6 +85,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
             "gcs_scratch": scratch,
             "project": project,
             "region": region,
+            "accelerators": accelerators,
             "provisioning_model": provisioning_model,
         }
         if machine_type:
