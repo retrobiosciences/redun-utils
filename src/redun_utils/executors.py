@@ -75,7 +75,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
         project: str,
         region: str,
         machine_type: Optional[str] = None,
-        accelerators: List[Tuple[str, int]] = [],
+        accelerators: List[Tuple[str, int]] = None,
         provisioning_model: str = "standard",
         scratch: str = "scratch",
         boot_disk_size_gb: Optional[int] = None,
@@ -85,9 +85,10 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
             "gcs_scratch": scratch,
             "project": project,
             "region": region,
-            "accelerators": accelerators,
             "provisioning_model": provisioning_model,
         }
+        if accelerators:
+            params["accelerators"] = accelerators
         if machine_type:
             params["machine_type"] = machine_type
         if boot_disk_size_gb:
