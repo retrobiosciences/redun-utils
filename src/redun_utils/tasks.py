@@ -6,7 +6,7 @@ from redun import task
 from redun.scheduler import catch, catch_all, throw
 
 
-@dataclass(named=True)
+@dataclass(kw_only=True)
 class TaskResourcePolicy:
     vcpus: int
     memory: float
