@@ -81,6 +81,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
         provisioning_model: str = "standard",
         scratch: str = "scratch",
         boot_disk_size_gb: Optional[int] = None,
+        service_account_email: Optional[str] = None,
     ):
         params = {
             "image": image,
@@ -101,5 +102,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
             # convert gb to gib
             boot_disk_size_gib = int(boot_disk_size_gb * (1e9 / 1024 ** 3))
             params["boot_disk_size_gib"] = str(boot_disk_size_gib)
+        if service_account_email:
+            params["service_account_email"] = service_account_email
         config = Config({f"executors.{name}": params})
         super().__init__(name, config=config["executors"][name])
