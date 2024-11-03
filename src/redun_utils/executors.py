@@ -78,6 +78,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
         accelerators: Optional[List[Tuple[str, int]]] = None,
         container_volumes: Optional[List[str]] = None,
         container_options: Optional[List[str]] = None,
+        min_array_size: Optional[int] = None,
         provisioning_model: str = "standard",
         scratch: str = "scratch",
         boot_disk_size_gb: Optional[int] = None,
@@ -104,5 +105,7 @@ class CustomGCPBatchExecutor(GCPBatchExecutor):
             params["boot_disk_size_gib"] = str(boot_disk_size_gib)
         if service_account_email:
             params["service_account_email"] = service_account_email
+        if min_array_size:
+            params["min_array_size"] = min_array_size
         config = Config({f"executors.{name}": params})
         super().__init__(name, config=config["executors"][name])
